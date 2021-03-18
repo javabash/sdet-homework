@@ -1,4 +1,7 @@
+# eclipse files
 .project
 .classpath
 .settings
+*.class
 build-eclipse/
+target/
