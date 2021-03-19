@@ -4,65 +4,76 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.mockito.ArgumentCaptor;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
-import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 
-@RunWith(Parameterized.class)
 public class TestDictionary {
-
-//	Dictionary mockedDictionary = Mockito.mock(Dictionary.class);	
+	public static List<String> validPermsForTheWordWorking;
 
 	@Before
 	public void setup() {
-
+		validPermsForTheWordWorking = Arrays.asList("king", "ring", "grin", "gin", "know", "gown", "grow", "org", "row", "wok",
+				"work", "rig", "irk", "kin", "ink", "wink");
 	}
-
+	
 	@Test
-	public void testWord() {
+	public void test7CharWord() {
+		int knownPermutations = 16;
+		Dictionary.isEnglishWord("working");
+		Set<String> validWords = Dictionary.getValidWords();
+		assertEquals(knownPermutations, validWords.size());
 		
-		assertEquals(true, Dictionary.isEnglishWord("work"));
-
+	}
+	
+	@Test
+	public void test4CharWord() {
+		System.out.println("This is the size of the hashset, which stores our valid permutations.");
+		int knownPermutations = 4;
+		Dictionary.isEnglishWord("ring");
+		Set<String> generatedWords = Dictionary.getValidWords();
+		System.out.println("Test: " + generatedWords.size());
+		assertEquals(knownPermutations, generatedWords.size());
+		
+	}
+	
+	@Test
+	public void testNonAlphaNumChars() {
+		int knownPermutations = 0;
+		Dictionary.isEnglishWord("*#&&");
+		Set<String> generatedWords = Dictionary.getValidWords();
+		assertEquals(knownPermutations, generatedWords.size());
+		
+	}
+	
+	@Test
+	public void testNumbers() {
+		System.out.println("This is the size of the hashset, which stores our valid permutations.");
+		int knownPermutations = 0;
+		Dictionary.isEnglishWord("333");
+		Set<String> generatedWords = Dictionary.getValidWords();
+		System.out.println("Test: " + generatedWords.size());
+		assertEquals(knownPermutations, generatedWords.size());
+		
+	}
+	
+	
+	@Test
+	public void testValidWord() {
+		System.out.println("Using Mockito");
 		try (MockedStatic<Dictionary> theMock = Mockito.mockStatic(Dictionary.class)) {
 			theMock.when(() -> Dictionary.isEnglishWord("working")).thenReturn(true);
-
 		}
-		assertEquals(true, Dictionary.isEnglishWord("work"));
+		
+		assertEquals(true, Dictionary.isEnglishWord("working"));
 
 	}
-	
-	  @Parameterized.Parameters
-	   public static Collection wordList() {
-	      return Arrays.asList(new Object[][] {
-	         { "king", true },
-	         { "ring", true },
-	         { "grin", true },
-	         { "gin", true },
-	         { "know", true },
-	         { "gown", true },
-	         { "grow", true },
-	         { "org", true },
-	         { "row", true },
-	         { "wok", true },
-	         { "work", true },
-	         { "rig", true },
-	         { "irk", true },
-	         { "kin", true },
-	         { "ink", true },
-	         { "wink", true }
-	                  
-	      });
-	   }
-	
+
+
 
 
 }

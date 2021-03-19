@@ -1,16 +1,26 @@
 package com.rei.sdethomework;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import utils.math.combinatorics.PermutationIterable;
 import utils.math.combinatorics.PowerSetIterable;
+import mocks.MockDictionary;
 
 public class Dictionary {
+	private static HashSet<String> validWords;
 
 	public static boolean isEnglishWord(String word) {
-
-		PowerSetIterable<Character> powerSet = new PowerSetIterable<Character>(convertStringToCharList(word));
+		
+		//Set of generated words validated against our mockDictionary words
+		validWords = new HashSet<String>();
+		
+		//Source of truth
+		MockDictionary mockDictionary = new MockDictionary();
+		
+		PowerSetIterable<Character> powerSet = new PowerSetIterable<Character>(
+				convertStringToCharList(word.toLowerCase()));
 
 		for (List<Character> subset : powerSet) {
 			PermutationIterable<Character> permutations = new PermutationIterable<Character>(subset);
@@ -24,21 +34,25 @@ public class Dictionary {
 
 				String perm = sb.toString();
 				System.out.println(perm);
-				if (perm.equals(word)) {
-					return true;
+				if (mockDictionary.validateWord(perm) == true) {
+					System.out.println(perm);
+					validWords.add(perm);
+
 				}
 
 			}
 
 		}
-
-		return false;
+		//isEnglishWord() returns false if there are no validated permutations in our word store.
+		if (validWords.size() == 0) {
+			return false;
+		}
+		return true;
 
 	}
 
 	public static List<Character> convertStringToCharList(String str) {
 
-		// Create an empty List of character
 		List<Character> chars = new ArrayList<>();
 
 		// For each character in the String
@@ -48,7 +62,10 @@ public class Dictionary {
 			chars.add(ch);
 		}
 
-		// return the List
 		return chars;
+	}
+	//Stored valid permutations / helper method to support testing
+	public static HashSet<String> getValidWords() {
+		return validWords;
 	}
 }

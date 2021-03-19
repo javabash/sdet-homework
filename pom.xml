@@ -26,34 +26,6 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>30.1-jre</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-math3</artifactId>
-			<version>3.6.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.github.dpaukov</groupId>
-			<artifactId>combinatoricslib3</artifactId>
-			<version>3.3.0</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.googlecode.combinatoricslib/combinatoricslib -->
-		<dependency>
-			<groupId>com.googlecode.combinatoricslib</groupId>
-			<artifactId>combinatoricslib</artifactId>
-			<version>2.0</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.clojure/math.combinatorics -->
-		<dependency>
-			<groupId>org.clojure</groupId>
-			<artifactId>math.combinatorics</artifactId>
-			<version>0.1.6</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
 		<dependency>
 			<groupId>org.mockito</groupId>
